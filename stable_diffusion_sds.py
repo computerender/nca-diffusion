@@ -128,9 +128,11 @@ class StableDiffusion(nn.Module):
         grad = w * (noise_pred - noise)
 
         # clip grad for stable training?
-        # grad = grad.clamp(-10, 10)
-        grad = torch.nan_to_num(grad)
+        grad = grad.clamp(-10, 10)
+        #grad = torch.nan_to_num(grad)
         
+        with torch.no_grad():
+            grad_mag = grad.abs().sum()
         #print(f"grad shape: {grad.shape}")
 
         # since we omitted an item in grad, we need to use the custom function to specify the gradient
@@ -138,7 +140,7 @@ class StableDiffusion(nn.Module):
         
         #print(f"loss shape: {loss.shape}")
 
-        return loss 
+        return loss, grad_mag
 
     def produce_latents(self, text_embeddings, height=512, width=512, num_inference_steps=50, guidance_scale=7.5, latents=None):
 
