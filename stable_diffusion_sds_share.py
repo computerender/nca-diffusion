@@ -28,12 +28,6 @@ class SpecifyGradient(torch.autograd.Function):
         gt_grad = gt_grad * grad_scale
         return gt_grad, None
 
-def seed_everything(seed):
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    #torch.backends.cudnn.deterministic = True
-    #torch.backends.cudnn.benchmark = True
-
 class StableDiffusion(nn.Module):
     def __init__(self, device, sd_version='2.1', hf_key=None):
         super().__init__()
@@ -59,7 +53,11 @@ class StableDiffusion(nn.Module):
         self.vae = AutoencoderKL.from_pretrained(model_key, subfolder="vae").to(self.device)
         self.tokenizer = CLIPTokenizer.from_pretrained(model_key, subfolder="tokenizer")
         self.text_encoder = CLIPTextModel.from_pretrained(model_key, subfolder="text_encoder").to(self.device)
-        self.unet = UNet2DConditionModel.from_pretrained(model_key, subfolder="unet").to(self.device)
+        self.unet = UNet2DConditionModel.from_pretrained(
+            model_key, subfolder="unet",
+        #    revision="fp16",
+        #    torch_dtype=torch.float16
+        ).to(self.device)
 
         if is_xformers_available():
             self.unet.enable_xformers_memory_efficient_attention()
