@@ -132,7 +132,7 @@ class StableDiffusion(nn.Module):
         #grad = torch.nan_to_num(grad)
         
         with torch.no_grad():
-            grad_mag = grad.abs().sum()
+            grad_mag = grad.abs().mean()
         #print(f"grad shape: {grad.shape}")
 
         # since we omitted an item in grad, we need to use the custom function to specify the gradient
