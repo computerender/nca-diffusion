@@ -8,8 +8,9 @@ Models trained on large datasets often capture information which can be applied 
 
 For example, here is Stable Diffusion conditioned with the prompt "raindrops on glass" distilled into a [Neural Cellular Automata](https://distill.pub/selforg/2021/textures/) model:  
 
-![nca raindrops](assets/raindrops.gif)
-![nca raindrops 2](assets/raindrops-2-scaled-fast.gif)
+<p float="left">
+<img src="assets/raindrops-2.gif" width="320px">
+</p>
 
 The dynamics in this experiment likely owe more to the strong inductive bias of NCA than to dynamics which may exist in the diffusion model. Currently, this method is mainly aspirational.
 
