@@ -14,7 +14,7 @@ For example, here is Stable Diffusion conditioned with the prompt "raindrops on 
 And another iteration:
 <img src="assets/raindrops.gif" width="192px">
 
-The motion in this experiment likely owe more to the strong inductive bias of NCA than to dynamics which may exist in the diffusion model. Currently, this method is primarily aspirational.
+The motion in this experiment likely owes more to the strong inductive bias of NCA than to dynamics which may exist in the diffusion model. Currently, this method is primarily aspirational.
 
 
 
